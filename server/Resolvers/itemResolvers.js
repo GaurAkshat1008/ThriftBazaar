@@ -1,4 +1,5 @@
 import Item from '../Schema/itemSchema.js'
+import fs from "fs";
 
 export const addItem = async (req, res) => {
   const { name, price, description, imgUrls } = req.body
@@ -27,3 +28,9 @@ export const searchItems = async (req, res) => {
   })
   res.send(items)
 }
+
+export const createJsonFile = async () => {
+  const items = await Item.find();
+  const data = JSON.stringify(items.map((item) => item.name));
+  fs.writeFileSync("../web/items.json", data);
+};
