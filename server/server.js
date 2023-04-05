@@ -46,7 +46,7 @@ const main = async () => {
   schedule.scheduleJob("*/1 * * * *", function () {
     createJsonFile();
   });
-  
+
   app.use("/", router);
 
   app.listen(4000, () => {

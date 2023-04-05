@@ -1,12 +1,9 @@
 import Item from "../Schema/itemSchema.js";
 import User from "../Schema/userSchema.js";
 import fs from "fs";
-import isAuth from "../middlewares/isAuth.js";
-
 
 
 export const addItem = async (req, res) => {
-
   if(!req.session.userId) {
     return res.status(422).json({ error: "Please login first" });
   }
@@ -33,12 +30,14 @@ export const getItems = async (req, res) => {
 
 export const searchItems = async (req, res) => {
   const { keyword } = req.params;
+  const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+  const skip = req.query.skip ? parseInt(req.query.skip) : 0;
   const items = await Item.find({
     $or: [
       { name: { $regex: keyword, $options: "i" } },
       { description: { $regex: keyword, $options: "i" } },
     ],
-  });
+  }).limit(limit).skip(skip);
   res.send(items);
 };
 
@@ -51,7 +50,7 @@ export const getItem = async (req, res) => {
 export const createJsonFile = async () => {
   const items = await Item.find();
   const data = JSON.stringify(items.map((item) => item.name));
-  fs.writeFileSync("../web/items.json", data);
+  fs.writeFileSync("../web/data/items.json", data);
 };
 
 export const deleteItem = async (req, res) => {

@@ -1,9 +1,13 @@
 import User from "../Schema/userSchema.js ";
-// import isAuth from "../middlewares/isAuth";
+import Item from "../Schema/itemSchema.js";
 import bcrypt from "bcrypt";
+import { v4 } from "uuid";
+import { Redis } from "ioredis";
+import { sendMail } from "../Utils/sendMail.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const register = async (req, res) => {
-  // console.log(req.body);
   const { name, email, type, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
@@ -18,7 +22,6 @@ export const register = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-  // isAuth(req, res);
   const user = await User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
@@ -52,5 +55,59 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   req.session.destroy();
+  res.clearCookie("qid");
   res.send("Logged out");
 };
+
+export const getCart = (req, res) => {
+  if (!req.session.userId) {
+    return res.status(422).json({ error: "Please login first" });
+  }
+  const user = User.findById(req.session.userId);
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
+  }
+  let items = [];
+  user.items.forEach((item) => {
+    const itemList = Item.findById(item);
+    items.push(itemList);
+  });
+  res.send(items);
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(422).json({ error: "Invalid email" });
+  }
+  const token = v4();
+  console.log(token);
+  const redis = new Redis();
+  await redis.set(token, user._id, "ex", 1000 * 60 * 60 * 24);
+  const link = `http://localhost:3000/change-password/${token}`;
+  console.log(link);
+  sendMail(email, link);
+  res.send("Email sent");
+};
+
+export const changePassword = async (req, res) => {
+  const {token} = req.params;
+  const {newPassword} = req.body;
+  const redis = new Redis();
+  const userId = await redis.get(token);
+  if(!userId) {
+    return res.status(422).json({error: "Token expired"});
+  }
+  const userIdNum = parseInt(userId);
+  const user = await User.findById(userIdNum);
+  if(!user) {
+    return res.status(422).json({error: "User not found"});
+  }
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  user.password = hashedPassword;
+  await redis.del(token);
+  req.session.userId = user._id;
+  await user.save();
+  res.send(user);
+}
