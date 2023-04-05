@@ -75,6 +75,22 @@ export const getCart = (req, res) => {
   res.send(items);
 };
 
+// write function to update user
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email, type, password } = req.body;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
+  }
+  user.name = name;
+  user.email = email;
+  user.type = type;
+  user.password = password;
+  await user.save();
+  res.send(user);
+};
+
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email: email });
@@ -99,8 +115,7 @@ export const changePassword = async (req, res) => {
   if(!userId) {
     return res.status(422).json({error: "Token expired"});
   }
-  const userIdNum = parseInt(userId);
-  const user = await User.findById(userIdNum);
+  const user = await User.findById(userId);
   if(!user) {
     return res.status(422).json({error: "User not found"});
   }
@@ -108,6 +123,5 @@ export const changePassword = async (req, res) => {
   user.password = hashedPassword;
   await redis.del(token);
   req.session.userId = user._id;
-  await user.save();
   res.send(user);
 }
