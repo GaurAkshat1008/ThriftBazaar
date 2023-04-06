@@ -22,11 +22,12 @@ export const register = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
+  console.log(req.session.userId);
   const user = await User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
   }
-  console.log("user", user);
+  // console.log("user", user);
   res.send(user);
 };
 
@@ -48,7 +49,7 @@ export const login = async (req, res) => {
   if (!isMatch) {
     return res.status(422).json({ error: "Invalid email or password" });
   }
-  console.log(user[0]._id);
+  // console.log(user[0]._id);
   req.session.userId = user[0]._id;
   res.send(user);
 };
@@ -113,7 +114,7 @@ export const changePassword = async (req, res) => {
   const redis = new Redis();
   const userId = await redis.get(token);
   if(!userId) {
-    return res.status(422).json({error: "Token expired"});
+    return res.status(422).json({error: "Token expired / invalid"});
   }
   const user = await User.findById(userId);
   if(!user) {
@@ -121,6 +122,7 @@ export const changePassword = async (req, res) => {
   }
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
+  await user.save();
   await redis.del(token);
   req.session.userId = user._id;
   res.send(user);
