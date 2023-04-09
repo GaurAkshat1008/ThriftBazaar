@@ -22,7 +22,7 @@ export const register = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-  console.log(req.session.userId);
+  // console.log(req.session.userId);
   const user = await User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
@@ -61,9 +61,9 @@ export const logout = async (req, res) => {
 };
 
 export const getCart = (req, res) => {
-  if (!req.session.userId) {
-    return res.status(422).json({ error: "Please login first" });
-  }
+    // if (!req.session.userId) {
+    //   return res.status(422).json({ error: "Please login first" });
+    // }
   const user = User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });

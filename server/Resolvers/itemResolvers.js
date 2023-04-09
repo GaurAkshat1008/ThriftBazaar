@@ -4,9 +4,6 @@ import fs from "fs";
 
 
 export const addItem = async (req, res) => {
-  if(!req.session.userId) {
-    return res.status(422).json({ error: "Please login first" });
-  }
   const { name, price, description, imgUrls } = req.body;
   if(!name || !price || !description || !imgUrls) {
     return res.status(422).json({ error: "Please add all the fields" });
@@ -54,14 +51,12 @@ export const createJsonFile = async () => {
 };
 
 export const deleteItem = async (req, res) => {
-  isAuth(req, res);
   const { id } = req.params;
   const item = await Item.findByIdAndDelete(id);
   res.send(item);
 };
 
 export const updateItem = async (req, res) => {
-  isAuth(req, res);
   const { id } = req.params;
   const item = await Item.findById(id);
   if (!item) {
@@ -77,9 +72,6 @@ export const updateItem = async (req, res) => {
 };
 
 export const addItemToCart = async (req, res) => {
-  if(!req.session.userId) {
-    return res.status(422).json({ error: "Please login first" });
-  }
   const { id } = req.params;
   const user = await User.findById(req.session.userId);
   if (!user) {

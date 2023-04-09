@@ -40,9 +40,9 @@ import '../Styles/search.css'
     const [displaySuggestions, setDisplaySuggestions] = useState(false);
     
     let suggestions = [] 
-
+    
     async function callItems() {
-      const response = await fetch('/items.json');
+      const response = await fetch('../../data/items.json');
       const data = await response.json();
       suggestions = data;
     }

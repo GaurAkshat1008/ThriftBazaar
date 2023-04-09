@@ -7,6 +7,8 @@ import cors from "cors";
 import { Redis } from "ioredis";
 import session from "express-session";
 import RedisStore from "connect-redis";
+import dotenv from "dotenv";
+dotenv.config();
 
 const main = async () => {
   const app = express();
@@ -33,7 +35,7 @@ const main = async () => {
   app.use(session({
     store: new RedisStore({ client: redis }),
     name: "qid",
-    secret: "asdasdasd",
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
