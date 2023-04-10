@@ -4,15 +4,17 @@ import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { Redis } from "ioredis";
 import { sendMail } from "../Utils/sendMail.js";
-import validate from 'deep-email-validator'
+import EmailValidator from "email-deep-validator";
 import dotenv from "dotenv";
 dotenv.config();
 
 export const register = async (req, res) => {
   const { name, email, type, password } = req.body;
-  let res = await validate({ email: email });
-  if (!res.valid) {
-    return res.status(422).json({ error: "Invalid email" });
+  
+  const emailValidator = new EmailValidator();
+  const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(email);
+  if(!wellFormed || !validDomain || !validMailbox) {
+    return res.status(422).json({error: "Invalid email"});
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
