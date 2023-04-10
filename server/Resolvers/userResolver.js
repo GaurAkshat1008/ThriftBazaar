@@ -144,3 +144,12 @@ export const changePassword = async (req, res) => {
   req.session.userId = user._id;
   res.send(user);
 };
+
+
+export const getUser = async () => {
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
+  }
+  res.send(user);
+}
