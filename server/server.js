@@ -17,7 +17,7 @@ const main = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: true,
       credentials: true,
     })
   );
@@ -31,19 +31,19 @@ const main = async () => {
     next();
   });
 
-  const redis = new Redis();
-  app.use(session({
-    store: new RedisStore({ client: redis }),
-    name: "qid",
-    secret: process.env.COOKIE_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
-    },
-  }));
+  // const redis = new Redis();
+  // app.use(session({
+  //   store: new RedisStore({ client: redis }),
+  //   name: "qid",
+  //   secret: process.env.COOKIE_SECRET,
+  //   resave: false,
+  //   saveUninitialized: false,
+  //   cookie: {
+  //     httpOnly: true,
+  //     secure: false,
+  //     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+  //   },
+  // }));
 
   schedule.scheduleJob("*/1 * * * *", function () {
     createJsonFile();
