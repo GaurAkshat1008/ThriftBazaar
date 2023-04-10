@@ -1,4 +1,36 @@
-.id {
-    background-color: red;
-    height: 100vh;
+a{
+    text-decoration: none;
 }
+.productCard{
+    width: 300px;
+    height: 350px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+}
+
+.productCard:hover{
+    scale: 1.03;
+    transition: 0.2s;
+}
+
+.productImg{
+    width: 280px;
+
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.productPrice{
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark-gray)
+}
+
+.productName{
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--light-gray);
+}
+

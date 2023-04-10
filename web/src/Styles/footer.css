@@ -3,8 +3,8 @@
     text-align: center;
     width: 100%;
     color: var(--off-white); 
-    position: fixed;
-    bottom: 0;
+    /* position: fixed; */
+    /* bottom: 0; */
     background-color: rgb(33 37 41);
     padding: 1rem 1rem 2rem;
 }

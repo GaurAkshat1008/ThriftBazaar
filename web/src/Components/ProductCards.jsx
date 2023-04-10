@@ -1,28 +1,36 @@
 import '../Styles/productCards.css'
 import ProductCard from './ProductCard';
-import { getItems }  from '../axios/axios'
+import { getItems } from '../axios/axios'
 import { useEffect, useState } from 'react';
 
 const ProductCards = () => {
     const [data, setData] = useState([])
     useEffect(() => {
-        async function items(){
+        async function items() {
             const res = await getItems();
             setData(res)
         }
         items()
     }, [])
     // console.log(data)
-    return ( 
+    return (
         <div className='productCards'>
-            <div className="productCardsWrapper">
-                {   
-                    data.map((item, key) => {
-                        return (<ProductCard id={item._id} />)
-                    })
-
-                }
-            </div>
+            {
+                data.map((item, key) => {
+                    return (
+                        <a href={`/item/${item._id}`}>
+                            <ProductCard
+                                key={key}
+                                name={item.name}
+                                price={item.price}
+                                description={item.description}
+                                imgUrls={item.imgUrls}
+                                user={item.user}
+                            />
+                        </a>
+                    )
+                })
+            }
         </div>
     )
 }
