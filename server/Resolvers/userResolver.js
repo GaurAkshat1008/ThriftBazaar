@@ -4,11 +4,28 @@ import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { Redis } from "ioredis";
 import { sendMail } from "../Utils/sendMail.js";
+import EmailValidator from "email-deep-validator";
 import dotenv from "dotenv";
 dotenv.config();
 
 export const register = async (req, res) => {
   const { name, email, type, password } = req.body;
+
+  if (!name || !email || !type || !password) {
+    return res.send(422).json({ error: "Please add all the fields" });
+  }
+  const user = await User.findOne({ email: email });
+  if (user) {
+    console.log(user.name);
+    return res.status(422).json({ error: "User already exists" });
+  }
+  const emailValidator = new EmailValidator();
+  const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
+    email
+  );
+  if (!wellFormed || !validDomain || !validMailbox) {
+    return res.status(422).json({ error: "Invalid email" });
+  }
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
     name: name,
@@ -61,9 +78,9 @@ export const logout = async (req, res) => {
 };
 
 export const getCart = (req, res) => {
-    // if (!req.session.userId) {
-    //   return res.status(422).json({ error: "Please login first" });
-    // }
+  // if (!req.session.userId) {
+  //   return res.status(422).json({ error: "Please login first" });
+  // }
   const user = User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
@@ -109,21 +126,30 @@ export const forgotPassword = async (req, res) => {
 };
 
 export const changePassword = async (req, res) => {
-  const {token} = req.params;
-  const {newPassword} = req.body;
+  const { token } = req.params;
+  const { newPassword } = req.body;
   const redis = new Redis();
   const userId = await redis.get(token);
-  if(!userId) {
-    return res.status(422).json({error: "Token expired / invalid"});
+  if (!userId) {
+    return res.status(422).json({ error: "Token expired / invalid" });
   }
   const user = await User.findById(userId);
-  if(!user) {
-    return res.status(422).json({error: "User not found"});
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
   }
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
   await user.save();
   await redis.del(token);
   req.session.userId = user._id;
+  res.send(user);
+};
+
+
+export const getUser = async () => {
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
+  }
   res.send(user);
 }
