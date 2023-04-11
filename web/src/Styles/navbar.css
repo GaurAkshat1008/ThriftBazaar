@@ -1,0 +1,58 @@
+.navbar{
+    position: sticky;
+    width: 100%;
+    background-color: var(--dark-gray);
+}
+
+.navbarWrapper{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    flex: 2;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--off-white);    
+}
+
+.logo span{
+    color: var(--primary-color);
+}
+
+.search{
+    flex: 5;
+}
+
+.login-btn{
+    /* flex: 3; */
+    justify-content: center;
+    cursor: pointer;
+    width: 170px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 50px;
+}
+.login-btn:hover{
+    scale: 1.03;
+    transition: 0.1s;
+}
+
+.sell-btn{
+    /* flex: 2; */
+    justify-content: center;
+    cursor: pointer;
+    width: 170px;
+    height: 40px;
+    border: none;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+.sell-btn:hover{
+    scale: 1.03;
+    transition: 0.1s ;
+}

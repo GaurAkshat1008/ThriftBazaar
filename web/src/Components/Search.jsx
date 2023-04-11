@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SearchIcon from '@mui/icons-material/Search';
 import '../Styles/search.css'
 
   const SuggestionsList = props => {
@@ -70,12 +71,16 @@ import '../Styles/search.css'
   
     return (
       <>
+        <div className="searchWrapper">
+        <SearchIcon />
         <input
           className="user-input"
           type="text"
+          placeholder="Find products"
           onChange={onChange}
           value={inputValue}
         />
+        </div>
         <SuggestionsList
           inputValue={inputValue}
           selectedSuggestion={selectedSuggestion}

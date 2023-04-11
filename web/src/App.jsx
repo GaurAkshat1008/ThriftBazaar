@@ -1,10 +1,18 @@
 import Autocomplete from "./Components/Search"
+import Navbar from "./Components/Navbar"
+import Footer from "./Components/Footer"
+import ProductCards from "./Components/ProductCards"
+// import SignUp from "./Components/SignUp"
+import './Styles/App.css'
+
 
 
 function App() {
   return (
     <div className="App">
-      <Autocomplete />
+        <Navbar />
+        <ProductCards />
+        <Footer />
     </div>
   )
 }
