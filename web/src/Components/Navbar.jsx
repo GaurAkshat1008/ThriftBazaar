@@ -11,7 +11,9 @@ const Navbar = () => {
             <div className="search">
                 <Autocomplete />
             </div>
-            <button className="login-btn">Login</button>
+            <a href="/signin">
+              <button className="login-btn">Login</button>
+            </a>
             <button  className="sell-btn">+ SELL</button>
         </div>
     </div>
