@@ -1,7 +1,8 @@
  .productCards{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 10px 0;
+      /* make it as grid */
+      margin: 10px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-gap: 8px;
+
  }
