@@ -1,0 +1,68 @@
+.userContainer{
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.userTop{
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.userImg{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.userImg img{
+    width: 150px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.userDetails{
+    margin-left: 20px;
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.userName{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.userEmail, .userTime{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: gray
+}
+
+.mailIcon, .timeIcon{
+    margin-right: 5px;
+    color: var(--dark-gray)
+}
+
+.userBottom{
+    /* margin: 10px; */
+}
+
+.userItems{
+    /* background-color: white; */
+    /* padding: 10px; */
+    border-radius: 10px;
+
+}
+
+.userItemsHeader{
+    font-weight: 600;
+    padding-left: 10px;
+    font-size: 1.3rem;
+}

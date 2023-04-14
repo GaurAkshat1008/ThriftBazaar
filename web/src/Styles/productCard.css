@@ -6,8 +6,9 @@ a{
     height: 325px;
     padding: 10px;
     margin: 8px;
-    border: 1px solid var(--light-gray);
+    /* border: 1px solid var(--light-gray); */
     border-radius: 10px;
+    background-color: white;
 }
 
 .productCard:hover{
@@ -15,31 +16,31 @@ a{
     transition: 0.2s;
 }
 
-.productImg{
+.productCardImg{
     width: 280px;
     margin-bottom: 10px;
     object-fit: cover;
     border-radius: 8px;
 }
 
-.productPrice{
+.productCardPrice{
     font-size: 22px;
     font-weight: 800;
     color: var(--dark-gray)
 }
 
-.productName{
+.productCardName{
     font-weight: 500;
     font-size: 17px;
     color: var(--light-gray);
 }
 
-.productDesc{
+.productCardDesc{
     font-size: 14px;
     color: var(--light-gray);
 }
 
-.productUser{
+.productCardUser{
     font-size: 14px;
     margin-top: 10px;
     color: var(--light-gray);
