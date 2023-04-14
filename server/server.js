@@ -31,19 +31,20 @@ const main = async () => {
     next();
   });
 
-  // const redis = new Redis();
-  // app.use(session({
-  //   store: new RedisStore({ client: redis }),
-  //   name: "qid",
-  //   secret: process.env.COOKIE_SECRET,
-  //   resave: false,
-  //   saveUninitialized: false,
-  //   cookie: {
-  //     httpOnly: true,
-  //     secure: false,
-  //     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
-  //   },
-  // }));
+  const redis = new Redis();
+  app.use(session({
+    store: new RedisStore({ client: redis }),
+    name: "qid",
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+    },
+  }));
+
 
   schedule.scheduleJob("*/1 * * * *", function () {
     createJsonFile();
