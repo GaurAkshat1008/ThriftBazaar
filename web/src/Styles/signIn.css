@@ -15,21 +15,13 @@
 }
 
 .signupContainer {
-	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-			0 10px 10px rgba(0,0,0,0.22);
-	background-color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+	/* display: flex; */
 	font-family: 'Montserrat', sans-serif;
-	margin: 50px auto 50px;
-    position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	height: 480px;
+}
+
+.signIn{
+	display:flex;
+	flex-direction: row-reverse;
 }
 
 .signupContainer h1 {
@@ -65,7 +57,8 @@ p {
 	font-weight: bold;
 	padding: 12px 45px;
 	letter-spacing: 1px;
-	transition: transform 80ms ease-in;
+	margin-top: 10px;
+	cursor: pointer;
 }
 
 .signup-btn{
@@ -75,9 +68,10 @@ p {
 	color: var(--off-white);
 	font-size: 12px;
 	font-weight: bold;
+
 	padding: 12px 45px;
 	letter-spacing: 1px;
-	transition: transform 80ms ease-in;
+	cursor: pointer;
 }
 
 button.ghost {
@@ -101,7 +95,8 @@ form input {
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 100%;
+	width: 70%;
+	outline: none;
 }
 
 .form-container {
@@ -124,6 +119,7 @@ form input {
 }
 
 .overlay-container {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/web/public/assets/shop.jpg");
 	position: absolute;
 	top: 0;
 	left: 50%;
@@ -182,4 +178,88 @@ form input {
 
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
+}
+
+/* Radio button style */
+
+.control-group{
+	margin: 10px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.control {
+	margin-left: 20px;
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 4px;
+    padding-top: 3px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.control_indicator {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #cccccc;
+    border: 0px solid #000000;
+    border-radius: undefinedpx;
+}
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #edecec;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #07c9d2;
+}
+
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-radio .control_indicator {
+    border-radius: 50%;
+}
+
+.control-radio .control_indicator:after {
+    left: 7px;
+    top: 7px;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: background 250ms;
+}
+.control-radio .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-left: -1.3rem;
+    margin-top: -1.3rem;
+    background: #2aa1c0;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
 }

@@ -1,0 +1,91 @@
+.productContainer{
+    margin: 20px;
+    display: flex;
+}
+.productLeft img{
+    width: 700px;
+    border-radius: 10px;
+    object-fit: contain;
+    
+}
+
+.productRight{
+    margin-left: 20px;
+    width: 100%;
+}
+
+.productNameContainer{
+    padding: 15px;
+    background-color: white;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.productName{
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.buyContainer{
+    padding: 15px;
+    background-color: white;
+    
+    border-radius: 5px;
+}
+
+.buyContainer, .sellerContainer, .productNameContainer{
+    margin-bottom: 10px;
+}
+
+.productPrice{
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.buyButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--off-white);
+}
+.buyButton:hover{
+
+}
+
+.buyIcon{
+    margin: 0 15px;
+}
+
+.sellerContainer{
+    padding: 15px;
+    background-color: white;
+    
+    border-radius: 5px;
+}
+
+.sellerNameHead{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.sellerName{
+    margin-top: 5px;
+}
+
+.sellerName, .postedTime{
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.personIcon, .timeIcon{
+    margin-right: 10px;
+}

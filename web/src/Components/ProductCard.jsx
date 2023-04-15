@@ -10,11 +10,11 @@ const ProductCard = ({
 }) => {
   return (
     <div className='productCard'>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE3P4qDCx-svWdblH1p3ptnYVkQ9-sUXinrLDiKpLN&s" className="productImg" alt="product-img" />
-        <div className="productPrice">{price}</div>
-        <div className="productName">{name}</div>
-        <div className="productDesc">{description}</div>
-        <div className="productUser">Posted by {user}</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE3P4qDCx-svWdblH1p3ptnYVkQ9-sUXinrLDiKpLN&s" className="productCardImg" alt="product-img" />
+        <div className="productCardPrice">₹ {price}</div>
+        <div className="productCardName">{name}</div>
+        <div className="productCardDesc">{description}</div>
+        <div className="productCardUser">Posted by {user}</div>
     </div>
   )
 }
