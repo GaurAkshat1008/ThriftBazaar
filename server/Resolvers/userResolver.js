@@ -96,7 +96,7 @@ export const getCart = (req, res) => {
 // write function to update user
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, type, password } = req.body;
+  const { name, email, type } = req.body;
   const user = await User.findById(id);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
@@ -104,7 +104,6 @@ export const updateUser = async (req, res) => {
   user.name = name;
   user.email = email;
   user.type = type;
-  user.password = password;
   await user.save();
   res.send(user);
 };
@@ -145,11 +144,10 @@ export const changePassword = async (req, res) => {
   res.send(user);
 };
 
-
 export const getUser = async () => {
   const user = await User.findById(req.session.userId);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
   }
   res.send(user);
-}
+};
