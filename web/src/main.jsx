@@ -5,8 +5,6 @@ import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-// import './index.css'
-
 const router = createBrowserRouter([
   {
     path: "/",
