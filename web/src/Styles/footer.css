@@ -1,0 +1,34 @@
+.footer
+{
+    text-align: center;
+    width: 100%;
+    color: var(--off-white); 
+    /* position: fixed; */
+    /* bottom: 0; */
+    background-color: rgb(33 37 41);
+    padding: 1rem 1rem 2rem;
+}
+
+.footerWrapper{
+    margin: auto;
+}
+.footer span{
+    color: var(--primary-color);
+}
+
+.logo{
+    margin: 10px 0;
+}
+.footer-icons
+
+.footer h1{
+}
+
+.footer-icon
+{
+    cursor: pointer;
+    font-size: 20px !important;
+    color: var(--off-white) !important;
+    margin: 0 10px;
+}
+

@@ -1,18 +1,35 @@
+.searchWrapper{
+  display: flex;  
+  width: 400px;
+  padding: 10px 10px;
+  background-color: var(--off-white);
+}
 .user-input {
-  width: 250px;
-  padding: 5px 3px;
+  margin-left: 10px;
+  font-size: 15px;
+  border: none;
+  width: 80%;
+  height: 25px;
+  background-color: var(--off-white);
+  /* make the caret bigger */
+  caret-color: var(--primary-color);
+  outline: none;
 }
 .suggestions-list {
   list-style: none;
   padding: 0;
+  width: 400px;
   max-height: 160px;
   overflow-y: none;
   max-width: 250px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
+  z-index: 10;
+  position: absolute;
+  border: 1px solid var(--dark-gray);
 }
 .suggestion {
+<<<<<<< HEAD
   user-select: none;
   background-color: rgb(226, 181, 181);
   padding: 10px;
@@ -27,4 +44,18 @@
 .selected {
   /* background-color: rgb(148, 44, 44); */
   /* color: rgb(238, 223, 223); */
+=======
+  background-color: var(--off-white);
+  padding: 10px;
+  width: 400px;
+  color: rgb(65, 65, 65);
+  cursor: pointer;
+}
+.suggestion:hover {
+  background-color: #bdfafc;
+}
+.selected {
+  background-color: var(--dark-gray);
+  color: var(--off-white);
+>>>>>>> 582db61e34a8a67428d508c1ca97321be314cb7e
 }

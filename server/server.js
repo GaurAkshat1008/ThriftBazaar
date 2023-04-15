@@ -17,7 +17,7 @@ const main = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: true,
       credentials: true,
     })
   );
@@ -44,6 +44,7 @@ const main = async () => {
       maxAge: 1000 * 60 * 60 * 24 * 365,
     },
   }));
+
 
   schedule.scheduleJob("*/1 * * * *", function () {
     createJsonFile();
