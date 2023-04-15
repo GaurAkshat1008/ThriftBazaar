@@ -1,4 +1,4 @@
-import '../Styles/productCards.css'
+// import '../Styles/productCards.css'
 import ProductCard from './ProductCard';
 import { getItems } from '../axios/axios'
 import { useEffect, useState } from 'react';

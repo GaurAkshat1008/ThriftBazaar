@@ -1,4 +1,4 @@
-import '../Styles/product.css'
+// import '../Styles/product.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

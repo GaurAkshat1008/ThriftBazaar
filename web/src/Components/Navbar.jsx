@@ -1,4 +1,4 @@
-import '../Styles/navbar.css';
+// import '../Styles/navbar.css';
 import Autocomplete from './Search';
 
 const Navbar = () => {

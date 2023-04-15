@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
-import '../Styles/search.css'
+// import '../Styles/search.css'
 
   const SuggestionsList = props => {
     const {

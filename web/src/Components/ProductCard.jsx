@@ -1,4 +1,4 @@
-import '../Styles/productCard.css';
+// import '../Styles/productCard.css';
 
 const ProductCard = ({
     id,

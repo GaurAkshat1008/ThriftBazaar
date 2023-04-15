@@ -10,21 +10,42 @@ dotenv.config();
 
 export const register = async (req, res) => {
   const { name, email, type, password } = req.body;
-
+  console.log(name, email, type, password)
   if (!name || !email || !type || !password) {
-    return res.send(422).json({ error: "Please add all the fields" });
+    return res.json({
+      errors: [
+        {
+          field: "username",
+          message: "please add all the fields",
+        },
+      ],
+    });
   }
   const user = await User.findOne({ email: email });
   if (user) {
     console.log(user.name);
-    return res.status(422).json({ error: "User already exists" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Email already exists",
+        },
+      ],
+    });
   }
   const emailValidator = new EmailValidator();
   const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
     email
   );
   if (!wellFormed || !validDomain || !validMailbox) {
-    return res.status(422).json({ error: "Invalid email" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid Email",
+        },
+      ],
+    });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
@@ -35,7 +56,9 @@ export const register = async (req, res) => {
   });
   await newUser.save();
   req.session.userId = newUser._id;
-  res.send(newUser);
+  return res.json({
+    user: user,
+  });
 };
 
 export const getCurrentUser = async (req, res) => {
@@ -56,19 +79,40 @@ export const getUsers = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(422).json({ error: "Please add email or password" });
+    return res.status(200).json({
+      errors: [
+        {
+          field: "email",
+          message: "Please enter email",
+        },
+      ],
+    });
   }
   const user = await User.find({ email: email });
-  if (!user) {
-    return res.status(422).json({ error: "Invalid email or password" });
+  // console.log(user);
+  if (user.length === 0) {
+    return res.status(200).json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid email",
+        },
+      ],
+    });
   }
   const isMatch = await bcrypt.compare(password, user[0].password);
   if (!isMatch) {
-    return res.status(422).json({ error: "Invalid email or password" });
+    return res.status(200).json({
+      errors: [
+        {
+          field: "password",
+          message: "Invalid password",
+        },
+      ],
+    });
   }
-  // console.log(user[0]._id);
   req.session.userId = user[0]._id;
-  res.send(user);
+  return res.json({ user: user[0] });
 };
 
 export const logout = async (req, res) => {
@@ -99,7 +143,14 @@ export const updateUser = async (req, res) => {
   const { name, email, type } = req.body;
   const user = await User.findById(id);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return {
+      errors: [
+        {
+          field: "name",
+          message: "User not found",
+        },
+      ],
+    };
   }
   user.name = name;
   user.email = email;
