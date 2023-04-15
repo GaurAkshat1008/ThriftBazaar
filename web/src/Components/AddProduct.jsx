@@ -36,7 +36,7 @@ const AddProduct = () => {
                     <textarea type="text" placeholder="Enter Item Description" />
                 </div>
 
-                <button className="addProductBtn">ADD PRODUCT</button>
+                <button className="addProductBtn">POST AD</button>
             </form>
         </div>
     )

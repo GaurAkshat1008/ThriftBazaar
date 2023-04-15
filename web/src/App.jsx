@@ -16,8 +16,8 @@ function App() {
         <Navbar />
         {/* <ProductCards /> */}
         {/* <Product /> */}
-        {/* <User /> */}
-        <AddProduct />
+        <User />
+        {/* <AddProduct /> */}
         <Footer />
     </div>
   )
