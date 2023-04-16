@@ -1,7 +1,8 @@
-// import '../Styles/user.css'
+import '../Styles/user.css'
 import EmailIcon from '@mui/icons-material/Email';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import ProductCards from './ProductCards';
+import { Icon } from '@chakra-ui/react';
 
 const User = () => {
   return (
@@ -13,11 +14,11 @@ const User = () => {
             <div className="userDetails">
                 <div className="userName">John Doe</div>
                 <div className="userEmail">
-                        <EmailIcon className='mailIcon'/>
+                    <Icon as='EmailIcon' className='mailIcon' />
                     user@gmail.com
                 </div>
                 <div className="userTime">
-                        <ScheduleIcon className='timeIcon'/>
+                    <Icon as='ScheduleIcon' className='timeIcon' />
                     Member Since 14 April 2023
                 </div>
             </div>

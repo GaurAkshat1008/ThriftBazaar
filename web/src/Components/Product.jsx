@@ -1,7 +1,8 @@
-// import '../Styles/product.css'
+import '../Styles/product.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Icon } from '@chakra-ui/react';
 
 const Product = () => {
   return (
@@ -18,7 +19,7 @@ const Product = () => {
             <div className="buyContainer">
                 <div className="productPrice">₹ 3,35,000</div>
                 <div className="buyButton">
-                    <ShoppingCartIcon className='buyIcon' />
+                    <Icon as='ShoppingCartIcon' className='buyIcon' />
                     BUY NOW
                 </div>
             </div>
@@ -27,11 +28,11 @@ const Product = () => {
                     <div className="sellerNameHead">Posted By</div>
                     <hr />
                     <div className="sellerName">
-                    <PersonIcon className='personIcon'/>
+                        <Icon as='PersonIcon' className='personIcon' /> 
                     John Doe</div>
                 </div>
                 <div className="postedTime">
-                <AccessTimeIcon className='timeIcon' />
+                    <Icon as='AccessTimeIcon' className='timeIcon' />
                  14 April 2023 at 12:01 PM</div>
             </div>
         </div>

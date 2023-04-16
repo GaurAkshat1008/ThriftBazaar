@@ -18,11 +18,12 @@ const main = async () => {
   app.use(
     cors({
       origin: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
       credentials: true,
     })
   );
   app.all("/*", function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
     res.header(
       "Access-Control-Allow-Headers",
       "X-Requested-With, Content-Type, Accept"

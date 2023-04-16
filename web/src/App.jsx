@@ -1,6 +1,4 @@
 import Autocomplete from "./Components/Search"
-import Navbar from "./Components/Navbar"
-import Footer from "./Components/Footer"
 import ProductCards from "./Components/ProductCards"
 import Product from "./Components/Product"
 import User from "./Components/User"
@@ -8,19 +6,19 @@ import ForgotPassword from "./Components/ForgotPassword"
 // import SignUp from "./Components/SignUp"
 import './Styles/App.css'
 import AddProduct from "./Components/AddProduct"
+import { EmailSent } from "./Components/EmailSent"
 
 
 
 function App() {
   return (
     <div className="App">
-        <Navbar />
-        <ForgotPassword />
+        {/* <ForgotPassword /> */}
         {/* <ProductCards /> */}
         {/* <Product /> */}
         {/* <User /> */}
         {/* <AddProduct /> */}
-        <Footer />
+        {/* <EmailSent /> */}
     </div>
   )
 }

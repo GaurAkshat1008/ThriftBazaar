@@ -12,8 +12,14 @@ export const admin = (req, res, next) => {
 
 export const protect = (req, res, next) => {
   if (!req.session.userId) {
-    return res.status(422).json({ error: "Please login first" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    });
   }
   next();
 };
-

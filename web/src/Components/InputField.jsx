@@ -3,7 +3,12 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
+  InputGroup,
+  InputRightElement,
+  Button,
 } from "@chakra-ui/react";
+
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { useField } from "formik";
 import React, { InputHTMLAttributes } from "react";
@@ -12,8 +17,8 @@ export const InputField = ({ label, ...props }) => {
   let height = "45px";
   let [field, { error }] = useField(props);
   return (
-    <FormControl isInvalid={!!error}>
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+    <FormControl isInvalid={!!error} display={'flex'} justifyContent={'center'} flexDir={'column'}>
+      <FormLabel htmlFor={field.name} ml={4} fontSize={'md'} color={'button'}>{label}</FormLabel>
       <Input
         {...field}
         {...props}

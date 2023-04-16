@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
-// import '../Styles/search.css'
+import '../Styles/search.css'
+import { Icon } from "@chakra-ui/react";
 
   const SuggestionsList = props => {
     const {
@@ -72,7 +73,7 @@ import SearchIcon from '@mui/icons-material/Search';
     return (
       <>
         <div className="searchWrapper">
-        <SearchIcon />
+          <Icon as={SearchIcon} className="searchIcon"/>  
         <input
           className="user-input"
           type="text"

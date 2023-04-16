@@ -3,33 +3,19 @@ import { register } from "../axios/axios";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { Form, Formik } from "formik";
 import { InputField } from "./InputField";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 
 const SignUp = () => {
   return (
-    <div className="signupContainer" id="container">
-      <div className="form-container sign-in-container">
-        {/* <form action="#">
-                    <h1 className='form-logo'><span>Thrift</span>Bazaar</h1>
-                    <h1>Sign Up</h1>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <div class="control-group">
-                        <label class="control control-radio">
-                            Buyer
-                            <input type="radio" name="userType" />
-                            <div class="control_indicator"></div>
-                        </label>
-                        <label class="control control-radio">
-                            Seller
-                            <input type="radio" name="userType" />
-                            <div class="control_indicator"></div>
-                        </label>
-                    </div>
-
-
-                    <button className='signin-btn'>SIGN UP</button>
-                </form> */}
+    <Flex h={"70vh"} fontFamily={"monte"}>
+      <Box
+        pos={"absolute"}
+        top={0}
+        height={"100%"}
+        left={0}
+        w={"50%"}
+        zIndex={2}
+      >
         <Formik
           initialValues={{
             username: "",
@@ -51,12 +37,11 @@ const SignUp = () => {
             }
           }}
         >
-          {({isSubmitting, setFieldValue}) => (
+          {({ isSubmitting, setFieldValue }) => (
             <Form>
-              <h1 className="form-logo">
-                <span>Thrift</span>Bazaar
-              </h1>
-              <h1>Sign up</h1>
+              <Text fontSize="2xl" fontWeight="bold" color="black" mb="10px">
+                Sign Up
+              </Text>
               <Box mt={4}>
                 <InputField
                   name="username"
@@ -65,6 +50,8 @@ const SignUp = () => {
                   label="Username"
                   w={"400px"}
                 />
+              </Box>
+              <Box mt={4}>
                 <InputField
                   name="email"
                   type="email"
@@ -73,66 +60,117 @@ const SignUp = () => {
                   w={"400px"}
                 />
               </Box>
-              <InputField
-                name="password"
-                type="password"
-                placeholder="Password"
-                label="Password"
-                w={"400px"}
-              />
-              <div class="control-group">
+              <Box mt={4}>
+                <InputField
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  label="Password"
+                  w={"400px"}
+                />
+              </Box>
+              <Flex direction={"row"}>
                 <label class="control control-radio">
                   Buyer
-                  <input
+                  <Input
                     type="radio"
                     name="role"
                     required={true}
                     value="buyer"
                     onChange={() => {
-                        setFieldValue("role", "buyer")
+                      setFieldValue("role", "buyer");
                     }}
                   />
                   <div class="control_indicator"></div>
                 </label>
                 <label class="control control-radio">
                   Seller
-                  <input
+                  <Input
                     type="radio"
                     name="role"
                     required={true}
                     value="seller"
                     onChange={() => {
-                        setFieldValue("role", "seller")
+                      setFieldValue("role", "seller");
                     }}
                   />
                   <div class="control_indicator"></div>
                 </label>
-              </div>
+              </Flex>
               <Button
                 className="signin-btn"
                 type="submit"
                 isLoading={isSubmitting}
+                bgColor={"button"}
+                mt={4}
               >
                 SIGN UP
               </Button>
             </Form>
           )}
         </Formik>
-      </div>
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-right">
-            <h1>Welcome Back!</h1>
-            <p>Sign In to your account</p>
+      </Box>
+      <Box
+        pos={"absolute"}
+        top={0}
+        left={"50%"}
+        w={"50%"}
+        h={"100%"}
+        overflow={"hidden"}
+        zIndex={100}
+      >
+        <Box
+          bgColor={"button"}
+          background={"linear-gradient(to right, #00ADB5, #38eaf3)"}
+          backgroundRepeat={"no-repeat"}
+          backgroundSize={"cover"}
+          backgroundPosition={"0 0"}
+          color={"white"}
+          left={"-100%"}
+          position={"relative"}
+          height={"100%"}
+          width={"200%"}
+          transform={"translateX(0)"}
+          transition={"transform 0.6s ease-in-out"}
+        >
+          <Box
+            pos={"absolute"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            flexDir={"coloumn"}
+            top={"40%"}
+            padding={"0 40px"}
+            textAlign={"center"}
+            h={"100%"}
+            w={"50%"}
+            left={"50%"}
+            transform={"translateX(0)"}
+            transition={"transform 0.6s ease-in-out"}
+          >
+            <Text fontSize="2xl" fontWeight="bold" color="white" mb="10px">
+              Welcome Back!
+            </Text>
+            <Text
+              fontSize="md"
+              fontWeight="100"
+              color="white"
+              mb="10px"
+              lineHeight={"20px"}
+              letterSpacing={"0.5px"}
+              m={"20px 0 30px"}
+            >
+              Sign In to your account
+            </Text>
+
             <a href="../signin">
               <button className="signup-btn" id="signUp">
                 SIGN IN
               </button>
             </a>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Flex>
   );
 };
 

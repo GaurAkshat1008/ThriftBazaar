@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:4000'
+    baseURL: 'http://localhost:4000',
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json',
+    }
 })
 
 export const getItems = async () => {
@@ -22,6 +26,7 @@ export const register = async (name, email, password, type) => {
 
 export const getCurrentUser = async () => {
     const req = await instance.get('/v1/me')
+    console.log(req.data);
     return req.data
 }
 
@@ -50,3 +55,8 @@ export const deleteItem = async (id) => {
     return req.data
 }
 
+export const forgotPassword = async (email) => {
+    const req = await instance.post('/v1/forgotPassword', { email })
+    console.log(req.data);
+    return req.data
+}

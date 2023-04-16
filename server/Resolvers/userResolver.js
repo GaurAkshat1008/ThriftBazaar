@@ -62,10 +62,16 @@ export const register = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-  // console.log(req.session.userId);
   const user = await User.findById(req.session.userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        }
+      ]
+    })
   }
   // console.log("user", user);
   res.send(user);
@@ -163,29 +169,50 @@ export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
-    return res.status(422).json({ error: "Invalid email" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid Email"
+        }
+      ]
+    })
   }
   const token = v4();
   console.log(token);
   const redis = new Redis();
   await redis.set(token, user._id, "ex", 1000 * 60 * 60 * 24);
-  const link = `http://localhost:3000/change-password/${token}`;
+  const link = `http://localhost:5173/change-password/${token}`;
   console.log(link);
   sendMail(email, link);
-  res.send("Email sent");
+  res.json({ message: "Check your email" });
 };
 
 export const changePassword = async (req, res) => {
-  const { token } = req.params;
-  const { newPassword } = req.body;
+  const { newPassword, token } = req.body;
   const redis = new Redis();
   const userId = await redis.get(token);
   if (!userId) {
-    return res.status(422).json({ error: "Token expired / invalid" });
+    // return res.status(422).json({ error: "Token expired / invalid" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Token expired / invalid",
+        }
+      ]
+    })
   }
   const user = await User.findById(userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid email",
+        }
+      ]
+    })
   }
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
