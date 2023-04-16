@@ -18,6 +18,7 @@ import {
   forgotPassword,
   changePassword,
   updateUser,
+  getItemsByUser,
 } from "../Resolvers/userResolver.js";
 import { protect, admin } from "../Middlewares/private.js";
 
@@ -31,6 +32,7 @@ router.get("/v1/getItem/:id", getItem);
 router.delete("/v1/deleteItem/:id", protect, deleteItem);
 router.put("/v1/updateItem/:id", protect, updateItem);
 router.post("/v1/addToCart/:id", protect, addItemToCart);
+router.get("/v1/userItems", protect, getItemsByUser);
 router.get("/v1/getCart", protect, getCart);
 
 // user routes

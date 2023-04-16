@@ -1,28 +1,54 @@
 import {
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
-  Wrap,
-  WrapItem,
+  Box,
   Button,
   Link,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
+import { useAuth } from "../../utils/useAuth";
 import "../Styles/navbar.css";
 import Autocomplete from "./Search";
-import { useEffect } from "react";
-import { useAuth } from "../../utils/useAuth";
+import { logout } from "../axios/axios";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const { user, loading } = useAuth();
-  console.log("user: ", user, loading);
+  const [isLoggedin, setIsLoggedin] = useState(false);
 
   let lgnbtn;
+  useEffect(() => {
+    if (!loading && user) {
+      setIsLoggedin(true);
+    }
+  }, [user, loading]);
 
-  if (!loading && user) {
+  if (!loading && user && isLoggedin) {
     lgnbtn = (
-      <Link href="/profile">
-        <Avatar name={user.name} />
-      </Link>
+      <Menu isLazy>
+        <MenuButton px={4} py={2} transition="fade 0.4s">
+          <Avatar name={user.name} />
+        </MenuButton>
+        <MenuList>
+          <Link href="/profile">
+            <MenuItem>Profile</MenuItem>
+          </Link>
+          <MenuDivider />
+          <MenuItem
+            onClick={async () => {
+              const lt = await logout();
+              console.log(lt);
+              setIsLoggedin(false);
+              // window.location.reload();
+            }}
+          >
+            Logout
+          </MenuItem>
+        </MenuList>
+      </Menu>
     );
   } else {
     lgnbtn = (
@@ -37,15 +63,17 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbarWrapper">
-        <div className="logo">
+        <Box as="a" href="/" className="logo">
           <span>Thrift</span>Bazaar
-        </div>
+        </Box>
         <div className="search">
           <Autocomplete />
         </div>
-        <Button p={"0 40px"} mr={4} borderRadius={"3xl"}>
-          + SELL
-        </Button>
+        {!loading && user && user.type === "seller" && (
+          <Button p={"0 40px"} mr={4} borderRadius={"3xl"}>
+            + SELL
+          </Button>
+        )}
         {lgnbtn}
       </div>
     </div>

@@ -11,6 +11,7 @@ import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
 
 import { EmailSent } from './Components/EmailSent';
+import User from './Components/User';
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/sent",
     element: <EmailSent />
+  },
+  {
+    path: "/profile",
+    element: <User />,
   }
   // {
   //   path: "/change-password/:token",

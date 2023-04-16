@@ -26,7 +26,12 @@ export const register = async (name, email, password, type) => {
 
 export const getCurrentUser = async () => {
     const req = await instance.get('/v1/me')
-    console.log(req.data);
+    // console.log(req.data);
+    return req.data
+}
+
+export const getItemsByUser = async () => {
+    const req = await instance.get('/v1/userItems')
     return req.data
 }
 

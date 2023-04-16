@@ -10,7 +10,7 @@ dotenv.config();
 
 export const register = async (req, res) => {
   const { name, email, type, password } = req.body;
-  console.log(name, email, type, password)
+  console.log(name, email, type, password);
   if (!name || !email || !type || !password) {
     return res.json({
       errors: [
@@ -69,9 +69,9 @@ export const getCurrentUser = async (req, res) => {
         {
           field: "email",
           message: "Please login first",
-        }
-      ]
-    })
+        },
+      ],
+    });
   }
   // console.log("user", user);
   res.send(user);
@@ -143,6 +143,22 @@ export const getCart = (req, res) => {
   res.send(items);
 };
 
+export const getItemsByUser = async (req, res) => {
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    });
+  }
+  const items = await Item.find({ user: user._id });
+  res.send(items);
+};
+
 // write function to update user
 export const updateUser = async (req, res) => {
   const { id } = req.params;
@@ -173,10 +189,10 @@ export const forgotPassword = async (req, res) => {
       errors: [
         {
           field: "email",
-          message: "Invalid Email"
-        }
-      ]
-    })
+          message: "Invalid Email",
+        },
+      ],
+    });
   }
   const token = v4();
   console.log(token);
@@ -199,9 +215,9 @@ export const changePassword = async (req, res) => {
         {
           field: "email",
           message: "Token expired / invalid",
-        }
-      ]
-    })
+        },
+      ],
+    });
   }
   const user = await User.findById(userId);
   if (!user) {
@@ -210,9 +226,9 @@ export const changePassword = async (req, res) => {
         {
           field: "email",
           message: "Invalid email",
-        }
-      ]
-    })
+        },
+      ],
+    });
   }
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
