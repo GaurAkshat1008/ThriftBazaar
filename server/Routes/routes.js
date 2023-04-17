@@ -43,6 +43,6 @@ router.post("/v1/login", login);
 router.post("/v1/logout", protect, logout);
 router.post("/v1/updateUser/:id", protect, updateUser);
 router.post("/v1/forgotPassword", forgotPassword);
-router.post("/v1/changePassword/:token", changePassword);
+router.post("/v1/changePassword/", changePassword);
 
 export default router;

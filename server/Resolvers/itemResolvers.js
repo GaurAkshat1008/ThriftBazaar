@@ -41,6 +41,9 @@ export const searchItems = async (req, res) => {
 export const getItem = async (req, res) => {
   const { id } = req.params;
   const item = await Item.findById(id);
+  if(!item){
+    return res.json({error: "Item not found"})
+  }
   res.send(item);
 };
 

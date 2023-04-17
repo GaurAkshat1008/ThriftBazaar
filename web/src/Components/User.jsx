@@ -1,19 +1,23 @@
-import "../Styles/user.css";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import ProductCards from "./ProductCards";
+import { EmailIcon, TimeIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
+  Box,
+  Divider,
   Flex,
-  Icon,
-  Spinner,
   Skeleton,
   SkeletonCircle,
-  Box,
-  Avatar,
-  Divider,
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs
 } from "@chakra-ui/react";
-import { EmailIcon, TimeIcon } from "@chakra-ui/icons";
-import { useAuth } from "../../utils/useAuth";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../utils/useAuth";
+import "../Styles/user.css";
+import { Cart } from "./Cart";
+import ProductCards from "./ProductCards";
 
 const User = () => {
   const { user, loading } = useAuth();
@@ -94,14 +98,20 @@ const User = () => {
       <Divider />
       <Divider />
       <Divider />
-      <Flex width={'100%'} flexDir={'column'} justifyContent={'center'} alignItems={'center'}>
-        {user.type === "seller" ? (
-            <Box fontSize={'3xl'} mb={4} >Posted Ads</Box>
-        ) : (
-            <Box fontSize={'3xl'} mb={4} >Saved Ads</Box>
-        )}
-        <ProductCards />
-      </Flex>
+      <Tabs variant={"enclosed-colored"} size={"lg"} isFitted isManual isLazy>
+        <TabList mb={4}>
+          <Tab>Posted Ads</Tab>
+          <Tab>Cart</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <ProductCards />
+          </TabPanel>
+          <TabPanel>
+            <Cart />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

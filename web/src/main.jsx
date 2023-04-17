@@ -9,9 +9,11 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme'
 import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
-
+import { ChangePassword } from './Components/ChangePassword';
 import { EmailSent } from './Components/EmailSent';
 import User from './Components/User';
+import { SearchResults } from './Components/SearchResults';
+import Product from './Components/Product';
 
 
 const router = createBrowserRouter([
@@ -38,11 +40,19 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <User />,
+  },
+  {
+    path: "/change-password/:token",
+    element: <ChangePassword />,
+  },
+  {
+    path:"/search/:query",
+    element: <SearchResults />
+  },
+  {
+    path: "/item/:id",
+    element: <Product />,
   }
-  // {
-  //   path: "/change-password/:token",
-  //   element: <ChangePassword />,
-  // }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

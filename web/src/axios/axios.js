@@ -65,3 +65,18 @@ export const forgotPassword = async (email) => {
     console.log(req.data);
     return req.data
 }
+
+export const changePassword = async (token, password) => {
+    const req = await instance.post(`/v1/changePassword/`, {token, newPassword:password })
+    return req.data
+}
+
+export const getCart = async () => {
+    const req = await instance.get('/v1/getCart')
+    return req.data
+}
+
+export const getUser = async (id) => {
+    const req = await instance.get(`/v1/getUser/${id}`)
+    return req.data
+}

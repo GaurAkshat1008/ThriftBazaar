@@ -7,6 +7,8 @@ import ForgotPassword from "./Components/ForgotPassword"
 import './Styles/App.css'
 import AddProduct from "./Components/AddProduct"
 import { EmailSent } from "./Components/EmailSent"
+import { ChangePassword } from "./Components/ChangePassword"
+import { Cart } from "./Components/Cart"
 
 
 
@@ -19,6 +21,8 @@ function App() {
         {/* <User /> */}
         {/* <AddProduct /> */}
         {/* <EmailSent /> */}
+        {/* <ChangePassword /> */}
+        {/* <Cart /> */}
     </div>
   )
 }

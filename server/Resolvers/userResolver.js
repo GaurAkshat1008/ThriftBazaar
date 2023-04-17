@@ -128,12 +128,16 @@ export const logout = async (req, res) => {
 };
 
 export const getCart = (req, res) => {
-  // if (!req.session.userId) {
-  //   return res.status(422).json({ error: "Please login first" });
-  // }
   const user = User.findById(req.session.userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    })
   }
   let items = [];
   user.items.forEach((item) => {
@@ -206,6 +210,7 @@ export const forgotPassword = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   const { newPassword, token } = req.body;
+  console.log(req.body);
   const redis = new Redis();
   const userId = await redis.get(token);
   if (!userId) {
@@ -230,6 +235,7 @@ export const changePassword = async (req, res) => {
       ],
     });
   }
+  console.log(newPassword, token);
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
   await user.save();
@@ -238,8 +244,8 @@ export const changePassword = async (req, res) => {
   res.send(user);
 };
 
-export const getUser = async () => {
-  const user = await User.findById(req.session.userId);
+export const getUser = async (id) => {
+  const user = await User.findById(id);
   if (!user) {
     return res.status(422).json({ error: "User not found" });
   }

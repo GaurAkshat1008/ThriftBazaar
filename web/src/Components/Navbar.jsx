@@ -69,11 +69,11 @@ const Navbar = () => {
         <div className="search">
           <Autocomplete />
         </div>
-        {!loading && user && user.type === "seller" && (
+        
           <Button p={"0 40px"} mr={4} borderRadius={"3xl"}>
             + SELL
           </Button>
-        )}
+
         {lgnbtn}
       </div>
     </div>

@@ -32,8 +32,7 @@ const ProductCards = () => {
     variants={container}
     initial="hidden"
     animate="visible"
-    ml={"14rem"}
-    mr={"10rem"}
+    m={"3rem auto"}
     pr={"10rem"}
     gap={6}
     w={"90%"}
