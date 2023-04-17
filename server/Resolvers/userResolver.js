@@ -244,10 +244,12 @@ export const changePassword = async (req, res) => {
   res.send(user);
 };
 
-export const getUser = async (id) => {
-  const user = await User.findById(id);
-  if (!user) {
-    return res.status(422).json({ error: "User not found" });
-  }
-  res.send(user);
+export const getUser = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if(!user){
+      return res.json({error: "user does not exist"})
+    }
+    res.send(user);
+  
 };

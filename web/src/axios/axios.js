@@ -40,8 +40,9 @@ export const logout = async () => {
     return req.data
 }
 
-export const addItem = async (name, price, image, description, countInStock) => {
-    const req = await instance.post('/v1/addItem', { name, price, image, description, countInStock })
+export const addItem = async (name, price, image, description) => {
+    const req = await instance.post('/v1/addItem', { name, price, image, description })
+    console.log(req.data);
     return req.data
 }
 

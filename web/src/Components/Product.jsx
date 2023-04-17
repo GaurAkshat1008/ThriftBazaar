@@ -24,12 +24,11 @@ const Product = () => {
   }, []);
   useEffect(() => {
     if (product._id) {
-        console.log(product);
+        console.log(product.user);
         const getUserData = async () => {
-          const userData = await getUser(product.user);
-          setUser(userData.name);
-        };
-        console.log(user);
+            const userData = await getUser(product.user);
+            setUser(userData.name);
+        }
         getUserData();
       }
   }, [product])
@@ -49,7 +48,7 @@ const Product = () => {
     return (
       <div className="productContainer">
         <div className="productLeft">
-          <img src="/assets/shop.jpg" alt="product-img" />
+          <img src={product.imgUrls} alt="product-img" />
         </div>
         <div className="productRight">
           <div className="productNameContainer">
@@ -68,12 +67,13 @@ const Product = () => {
               <div className="sellerNameHead">Posted By</div>
               <hr />
               <div className="sellerName">
-                <Icon as={PersonIcon} />
+                <Icon as={PersonIcon} color={'button'}/>
+                {/* <PersonIcon /> */}
                 {user}
               </div>
             </div>
             <div className="postedTime">
-              <TimeIcon mr={2} />
+              <TimeIcon mr={2} color={'button'}/>
               14 April 2023 at 12:01 PM
             </div>
           </div>

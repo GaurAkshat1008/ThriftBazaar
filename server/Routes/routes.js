@@ -19,6 +19,7 @@ import {
   changePassword,
   updateUser,
   getItemsByUser,
+  getUser,
 } from "../Resolvers/userResolver.js";
 import { protect, admin } from "../Middlewares/private.js";
 
@@ -44,5 +45,6 @@ router.post("/v1/logout", protect, logout);
 router.post("/v1/updateUser/:id", protect, updateUser);
 router.post("/v1/forgotPassword", forgotPassword);
 router.post("/v1/changePassword/", changePassword);
+router.get("/v1/getUser/:id", protect, getUser);
 
 export default router;

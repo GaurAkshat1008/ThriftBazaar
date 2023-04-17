@@ -1,6 +1,7 @@
 .productContainer{
     margin: 20px;
     display: flex;
+    min-height: 70vh;
 }
 .productLeft img{
     width: 700px;

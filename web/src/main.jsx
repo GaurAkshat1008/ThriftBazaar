@@ -14,6 +14,7 @@ import { EmailSent } from './Components/EmailSent';
 import User from './Components/User';
 import { SearchResults } from './Components/SearchResults';
 import Product from './Components/Product';
+import AddProduct from './Components/AddProduct';
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/item/:id",
     element: <Product />,
+  },
+  {
+    path:"/addItem",
+    element: <AddProduct />
   }
 ]);
 

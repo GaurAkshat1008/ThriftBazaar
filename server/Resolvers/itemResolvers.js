@@ -6,7 +6,7 @@ import fs from "fs";
 export const addItem = async (req, res) => {
   const { name, price, description, imgUrls } = req.body;
   if(!name || !price || !description || !imgUrls) {
-    return res.status(422).json({ error: "Please add all the fields" });
+    return res.json({error: "Please add all the fields"})
   }
   const newItem = new Item({
     name,

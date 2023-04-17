@@ -31,7 +31,7 @@ const ProductCard = ({
       onClick={onClick}
       whileHover={{ scale: 1.05 }}
     >
-      <Image src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE3P4qDCx-svWdblH1p3ptnYVkQ9-sUXinrLDiKpLN&s"} className="productCardImg" alt="product-img" mb={4} w={400} bgPosition={'center'}/>
+      <Image src={imgUrls} className="productCardImg" alt="product-img" mb={4} w={400} bgPosition={'center'}/>
       <Divider />
       <Divider />
       <Divider />
@@ -42,13 +42,6 @@ const ProductCard = ({
       <div className="productCardDesc">{description}</div>
       <div className="productCardUser">Posted by {user}</div>
     </GridItem>
-    // <div className='productCard'>
-    //     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE3P4qDCx-svWdblH1p3ptnYVkQ9-sUXinrLDiKpLN&s" className="productCardImg" alt="product-img" />
-    //     <div className="productCardPrice">₹ {price}</div>
-    //     <div className="productCardName">{name}</div>
-    //     <div className="productCardDesc">{description}</div>
-    //     <div className="productCardUser">Posted by {user}</div>
-    // </div>
   )
 }
 

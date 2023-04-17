@@ -70,7 +70,7 @@ const Navbar = () => {
           <Autocomplete />
         </div>
         
-          <Button p={"0 40px"} mr={4} borderRadius={"3xl"}>
+          <Button as={'a'} href="/addItem" p={"0 40px"} mr={4} borderRadius={"3xl"}>
             + SELL
           </Button>
 
