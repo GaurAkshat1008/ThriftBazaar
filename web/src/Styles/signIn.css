@@ -1,27 +1,26 @@
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.form-logo{
-	width: 100%;
-	padding: 0 40px;
-	padding-bottom: 50px;
+.form-logo {
+  width: 100%;
+  padding: 0 40px;
+  padding-bottom: 50px;
 }
-.form-logo span{
-	color: var(--primary-color);
+.form-logo span {
+  color: var(--primary-color);
 }
 
 .signupContainer {
-	/* display: flex; */
-	font-family: 'Montserrat', sans-serif;
+  /* display: flex; */
+  font-family: "Montserrat", sans-serif;
 }
 
-.signIn{
-	display:flex;
-	flex-direction: row-reverse;
+.signIn {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .signupContainer h1 {
@@ -30,236 +29,234 @@
 }
 
 .signupContainer h2 {
-	text-align: center;
+  text-align: center;
 }
 
 p {
-	font-size: 14px;
-	font-weight: 100;
-	line-height: 20px;
-	letter-spacing: 0.5px;
-	margin: 20px 0 30px;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
 }
 
 .social {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
 }
 
 .signin-btn {
-	border-radius: 20px;
-    border: none;   
-	background-color: var(--primary-color);
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	margin-top: 10px;
-	cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
-.signup-btn{
-    border-radius: 20px;
-    border: 1px solid var(--off-white);   
-	background-color: transparent;
-	color: var(--off-white);
-	font-size: 12px;
-	font-weight: bold;
+.signup-btn {
+  border-radius: 20px;
+  border: 1px solid var(--off-white);
+  background-color: transparent;
+  color: var(--off-white);
+  font-size: 12px;
+  font-weight: bold;
 
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	cursor: pointer;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  cursor: pointer;
 }
 
 button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
+  background-color: transparent;
+  border-color: #ffffff;
 }
 
 form {
-	background-color: #FFFFFF;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 50px;
-	height: 100%;
-	text-align: center;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
 }
 
 form input {
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0;
-	width: 70%;
-	outline: none;
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 70%;
+  outline: none;
 }
 
 .form-container {
-	position: absolute;
-	top: 0;
-	height: 100%;
+  position: absolute;
+  top: 0;
+  height: 100%;
 }
 
 .sign-in-container {
-	left: 0;
-	width: 50%;
-	z-index: 2;
+  left: 0;
+  width: 50%;
+  z-index: 2;
 }
 
 .sign-up-container {
-	left: 0;
-	width: 50%;
-	opacity: 0;
-	z-index: 1;
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
 }
 
 .overlay-container {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/web/public/assets/shop.jpg");
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 50%;
-	height: 100%;
-	overflow: hidden;
-	transition: transform 0.6s ease-in-out;
-	z-index: 100;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/web/public/assets/shop.jpg");
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
 }
 
-.container.right-panel-active .overlay-container{
-	transform: translateX(-100%);
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
 }
 
 .overlay {
-	background: #00ADB5;
-	background: -webkit-linear-gradient(to right, #00ADB5, #77f2f9);
-	background: linear-gradient(to right, #00ADB5, #38eaf3);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: 0 0;
-	color: #FFFFFF;
-	position: relative;
-	left: -100%;
-	height: 100%;
-	width: 200%;
-  	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
+  background: #00adb5;
+  background: -webkit-linear-gradient(to right, #00adb5, #77f2f9);
+  background: linear-gradient(to right, #00adb5, #38eaf3);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
 }
-
 
 .overlay-panel {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 40px;
-	text-align: center;
-	top: 0;
-	height: 100%;
-	width: 50%;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
 }
 
-
 .container.right-panel-active .overlay-left {
-	transform: translateX(0);
+  transform: translateX(0);
 }
 
 .overlay-right {
-	right: 0;
-	transform: translateX(0);
+  right: 0;
+  transform: translateX(0);
 }
 
 .container.right-panel-active .overlay-right {
-	transform: translateX(20%);
+  transform: translateX(20%);
 }
 
 /* Radio button style */
 
-.control-group{
-	margin: 10px 0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+.control-group {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .control {
-	margin-left: 20px;
-    font-family: arial;
-    display: block;
-    position: relative;
-    padding-left: 26px;
-    margin-bottom: 4px;
-    padding-top: 3px;
-    cursor: pointer;
-    font-size: 16px;
-
+  margin-left: 20px;
+  font-family: arial;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 4px;
+  padding-top: 3px;
+  cursor: pointer;
+  font-size: 16px;
 }
 .control input {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
 }
 .control_indicator {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background: #cccccc;
-    border: 0px solid #000000;
-    border-radius: undefinedpx;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #cccccc;
+  border: 0px solid #000000;
+  border-radius: undefinedpx;
 }
 .control:hover input ~ .control_indicator,
 .control input:focus ~ .control_indicator {
-    background: #edecec;
+  background: #edecec;
 }
 
 .control input:checked ~ .control_indicator {
-    background: #07c9d2;
+  background: #07c9d2;
 }
 
 .control_indicator:after {
-    box-sizing: unset;
-    content: '';
-    position: absolute;
-    display: none;
+  box-sizing: unset;
+  content: "";
+  position: absolute;
+  display: none;
 }
 .control input:checked ~ .control_indicator:after {
-    display: block;
+  display: block;
 }
 .control-radio .control_indicator {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .control-radio .control_indicator:after {
-    left: 7px;
-    top: 7px;
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    background: #ffffff;
-    transition: background 250ms;
+  left: 7px;
+  top: 7px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: background 250ms;
 }
 .control-radio .control_indicator::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4.5rem;
-    height: 4.5rem;
-    margin-left: -1.3rem;
-    margin-top: -1.3rem;
-    background: #2aa1c0;
-    border-radius: 3rem;
-    opacity: 0.6;
-    z-index: 99999;
-    transform: scale(0);
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-left: -1.3rem;
+  margin-top: -1.3rem;
+  background: #2aa1c0;
+  border-radius: 3rem;
+  opacity: 0.6;
+  z-index: 99999;
+  transform: scale(0);
 }

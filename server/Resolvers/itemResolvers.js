@@ -4,15 +4,16 @@ import fs from "fs";
 
 
 export const addItem = async (req, res) => {
-  const { name, price, description, imgUrls } = req.body;
-  if(!name || !price || !description || !imgUrls) {
-    return res.status(422).json({ error: "Please add all the fields" });
+  const { name, price, description, image } = req.body;
+  // console.log(req.body)
+  if(!name || !price || !description || !image) {
+    return res.json({error: "Please add all the fields"})
   }
   const newItem = new Item({
     name,
     price,
     description,
-    imgUrls,
+    imgUrls: image,
     user: req.session.userId,
   });
 
@@ -41,6 +42,9 @@ export const searchItems = async (req, res) => {
 export const getItem = async (req, res) => {
   const { id } = req.params;
   const item = await Item.findById(id);
+  if(!item){
+    return res.json({error: "Item not found"})
+  }
   res.send(item);
 };
 

@@ -10,21 +10,42 @@ dotenv.config();
 
 export const register = async (req, res) => {
   const { name, email, type, password } = req.body;
-
+  console.log(name, email, type, password);
   if (!name || !email || !type || !password) {
-    return res.send(422).json({ error: "Please add all the fields" });
+    return res.json({
+      errors: [
+        {
+          field: "username",
+          message: "please add all the fields",
+        },
+      ],
+    });
   }
   const user = await User.findOne({ email: email });
   if (user) {
     console.log(user.name);
-    return res.status(422).json({ error: "User already exists" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Email already exists",
+        },
+      ],
+    });
   }
   const emailValidator = new EmailValidator();
   const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
     email
   );
   if (!wellFormed || !validDomain || !validMailbox) {
-    return res.status(422).json({ error: "Invalid email" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid Email",
+        },
+      ],
+    });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
@@ -35,14 +56,22 @@ export const register = async (req, res) => {
   });
   await newUser.save();
   req.session.userId = newUser._id;
-  res.send(newUser);
+  return res.json({
+    user: user,
+  });
 };
 
 export const getCurrentUser = async (req, res) => {
-  // console.log(req.session.userId);
   const user = await User.findById(req.session.userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    });
   }
   // console.log("user", user);
   res.send(user);
@@ -56,19 +85,40 @@ export const getUsers = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(422).json({ error: "Please add email or password" });
+    return res.status(200).json({
+      errors: [
+        {
+          field: "email",
+          message: "Please enter email",
+        },
+      ],
+    });
   }
   const user = await User.find({ email: email });
-  if (!user) {
-    return res.status(422).json({ error: "Invalid email or password" });
+  // console.log(user);
+  if (user.length === 0) {
+    return res.status(200).json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid email",
+        },
+      ],
+    });
   }
   const isMatch = await bcrypt.compare(password, user[0].password);
   if (!isMatch) {
-    return res.status(422).json({ error: "Invalid email or password" });
+    return res.status(200).json({
+      errors: [
+        {
+          field: "password",
+          message: "Invalid password",
+        },
+      ],
+    });
   }
-  // console.log(user[0]._id);
   req.session.userId = user[0]._id;
-  res.send(user);
+  return res.json({ user: user[0] });
 };
 
 export const logout = async (req, res) => {
@@ -77,19 +127,39 @@ export const logout = async (req, res) => {
   res.send("Logged out");
 };
 
-export const getCart = (req, res) => {
-  // if (!req.session.userId) {
-  //   return res.status(422).json({ error: "Please login first" });
-  // }
-  const user = User.findById(req.session.userId);
+export const getCart = async (req, res) => {
+  const user = await User.findById(req.session.userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    })
   }
-  let items = [];
-  user.items.forEach((item) => {
-    const itemList = Item.findById(item);
-    items.push(itemList);
-  });
+  
+  const items = await Promise.all(user.items.map(async (item) => {
+    const itemList = await Item.findById(item);
+    return itemList
+  }));
+  res.send(items);
+};
+
+export const getItemsByUser = async (req, res) => {
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Please login first",
+        },
+      ],
+    });
+  }
+  const items = await Item.find({ user: user._id });
   res.send(items);
 };
 
@@ -99,7 +169,14 @@ export const updateUser = async (req, res) => {
   const { name, email, type } = req.body;
   const user = await User.findById(id);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return {
+      errors: [
+        {
+          field: "name",
+          message: "User not found",
+        },
+      ],
+    };
   }
   user.name = name;
   user.email = email;
@@ -112,30 +189,53 @@ export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
-    return res.status(422).json({ error: "Invalid email" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid Email",
+        },
+      ],
+    });
   }
   const token = v4();
   console.log(token);
   const redis = new Redis();
   await redis.set(token, user._id, "ex", 1000 * 60 * 60 * 24);
-  const link = `http://localhost:3000/change-password/${token}`;
+  const link = `http://localhost:5173/change-password/${token}`;
   console.log(link);
   sendMail(email, link);
-  res.send("Email sent");
+  res.json({ message: "Check your email" });
 };
 
 export const changePassword = async (req, res) => {
-  const { token } = req.params;
-  const { newPassword } = req.body;
+  const { newPassword, token } = req.body;
+  console.log(req.body);
   const redis = new Redis();
   const userId = await redis.get(token);
   if (!userId) {
-    return res.status(422).json({ error: "Token expired / invalid" });
+    // return res.status(422).json({ error: "Token expired / invalid" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Token expired / invalid",
+        },
+      ],
+    });
   }
   const user = await User.findById(userId);
   if (!user) {
-    return res.status(422).json({ error: "User not found" });
+    return res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Invalid email",
+        },
+      ],
+    });
   }
+  console.log(newPassword, token);
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   user.password = hashedPassword;
   await user.save();
@@ -144,10 +244,12 @@ export const changePassword = async (req, res) => {
   res.send(user);
 };
 
-export const getUser = async () => {
-  const user = await User.findById(req.session.userId);
-  if (!user) {
-    return res.status(422).json({ error: "User not found" });
-  }
-  res.send(user);
+export const getUser = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if(!user){
+      return res.json({error: "user does not exist"})
+    }
+    res.send(user);
+  
 };
