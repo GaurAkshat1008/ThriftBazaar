@@ -44,7 +44,7 @@ const AddProduct = () => {
             updloadImages(images);
             if(imgUrls !== ""){
                 console.log(imgUrls)
-                const response = await addItem(values.name, values.price, values.description, imgUrls);
+                const response = await addItem(values.name, values.price, imgUrls, values.description);
                 if (response.errors) {
                     setErrors(toErrorMap(response.errors));
                 }

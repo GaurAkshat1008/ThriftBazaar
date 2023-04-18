@@ -81,3 +81,8 @@ export const getUser = async (id) => {
     const req = await instance.get(`/v1/getUser/${id}`)
     return req.data
 }
+
+export const addToCart = async (id) => {
+    const req = await instance.post(`/v1/addToCart/${id}`)
+    return req.data
+}

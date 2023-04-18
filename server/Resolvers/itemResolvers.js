@@ -4,15 +4,16 @@ import fs from "fs";
 
 
 export const addItem = async (req, res) => {
-  const { name, price, description, imgUrls } = req.body;
-  if(!name || !price || !description || !imgUrls) {
+  const { name, price, description, image } = req.body;
+  // console.log(req.body)
+  if(!name || !price || !description || !image) {
     return res.json({error: "Please add all the fields"})
   }
   const newItem = new Item({
     name,
     price,
     description,
-    imgUrls,
+    imgUrls: image,
     user: req.session.userId,
   });
 

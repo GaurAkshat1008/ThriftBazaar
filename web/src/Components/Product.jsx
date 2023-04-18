@@ -2,10 +2,10 @@ import "../Styles/product.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import { TimeIcon } from "@chakra-ui/icons";
-import { Icon, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Icon, Flex, Spinner, Text, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getItem, getUser } from "../axios/axios";
+import { getItem, getUser, addToCart } from "../axios/axios";
 
 const Product = () => {
   const { id } = useParams();
@@ -24,14 +24,14 @@ const Product = () => {
   }, []);
   useEffect(() => {
     if (product._id) {
-        console.log(product.user);
-        const getUserData = async () => {
-            const userData = await getUser(product.user);
-            setUser(userData.name);
-        }
-        getUserData();
-      }
-  }, [product])
+      // console.log(product.user);
+      const getUserData = async () => {
+        const userData = await getUser(product.user);
+        setUser(userData.name);
+      };
+      getUserData();
+    }
+  }, [product]);
   if (loading) {
     return (
       <Flex h={"70vh"} justifyContent={"center"} alignItems={"center"}>
@@ -57,23 +57,38 @@ const Product = () => {
           </div>
           <div className="buyContainer">
             <div className="productPrice">₹ {product.price}</div>
-            <div className="buyButton">
-              <Icon as={ShoppingCartIcon} className="buyIcon" />
+            <Button
+              w={"100%"}
+              h={"60px"}
+              bg={"button"}
+              p={8}
+              fontSize={"1.25rem"}
+              color={"whitesmoke"}
+              onClick={ async () => {
+                const response = await addToCart(id)
+                console.log(response)
+              }}
+            >
+              <Icon
+                as={ShoppingCartIcon}
+                className="buyIcon"
+                fontSize={"1.5rem"}
+              />
               BUY NOW
-            </div>
+            </Button>
           </div>
           <div className="sellerContainer">
             <div className="sellerNameContainer">
               <div className="sellerNameHead">Posted By</div>
               <hr />
               <div className="sellerName">
-                <Icon as={PersonIcon} color={'button'}/>
+                <Icon as={PersonIcon} color={"button"} />
                 {/* <PersonIcon /> */}
                 {user}
               </div>
             </div>
             <div className="postedTime">
-              <TimeIcon mr={2} color={'button'}/>
+              <TimeIcon mr={2} color={"button"} />
               14 April 2023 at 12:01 PM
             </div>
           </div>

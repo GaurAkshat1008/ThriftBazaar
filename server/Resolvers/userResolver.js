@@ -127,8 +127,8 @@ export const logout = async (req, res) => {
   res.send("Logged out");
 };
 
-export const getCart = (req, res) => {
-  const user = User.findById(req.session.userId);
+export const getCart = async (req, res) => {
+  const user = await User.findById(req.session.userId);
   if (!user) {
     return res.json({
       errors: [
@@ -139,11 +139,11 @@ export const getCart = (req, res) => {
       ],
     })
   }
-  let items = [];
-  user.items.forEach((item) => {
-    const itemList = Item.findById(item);
-    items.push(itemList);
-  });
+  
+  const items = await Promise.all(user.items.map(async (item) => {
+    const itemList = await Item.findById(item);
+    return itemList
+  }));
   res.send(items);
 };
 
