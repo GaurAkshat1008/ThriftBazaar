@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getCart } from "../axios/axios";
+import { deleteFromCart, getCart } from "../axios/axios";
 import { motion } from "framer-motion";
 import { Grid, Box, Flex, Text } from "@chakra-ui/react";
 import ProductCard from "./ProductCard";
 import { useAuth } from "../../utils/useAuth";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 export const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -31,10 +32,10 @@ export const Cart = () => {
   if (!loading && user) {
     if (cart.length === 0) {
       body = (
-        <Flex h={'30vh'} justifyContent={'center'} alignItems={'center'}>
-          <Text fontSize={'3xl'}>Your cart is empty...</Text>
+        <Flex h={"30vh"} justifyContent={"center"} alignItems={"center"}>
+          <Text fontSize={"3xl"}>Your cart is empty...</Text>
         </Flex>
-      )
+      );
     } else {
       body = (
         <Grid
@@ -51,8 +52,8 @@ export const Cart = () => {
           mb={"10rem"}
         >
           {cart.map((item, key) => {
-            return (
-              <a href={`/item/${item._id}`}>
+            if(item){
+              return (
                 <ProductCard
                   key={key}
                   name={item.name}
@@ -60,10 +61,17 @@ export const Cart = () => {
                   description={item.description}
                   imgUrls={item.imgUrls}
                   user={item.user}
-                  onClick={() => setSelectedId(item._id)}
-                />
-              </a>
+                  onClickbtn={ async () => {
+                    const response = await deleteFromCart(item._id);
+                    if (response) {
+                      window.location.reload()
+                    }
+                  }}
+                  btnVal={<DeleteIcon color={"red.800"} fontSize={"1rem"} />}
+                  // onClick={() => setSelectedId(item._id)}
+                  />
             );
+          }
           })}
         </Grid>
       );

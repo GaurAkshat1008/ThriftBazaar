@@ -86,3 +86,8 @@ export const addToCart = async (id) => {
     const req = await instance.post(`/v1/addToCart/${id}`)
     return req.data
 }
+
+export const deleteFromCart = async (id) => {
+    const req = await instance.post(`/v1/deleteFromCart/${id}`)
+    return req.data
+}
