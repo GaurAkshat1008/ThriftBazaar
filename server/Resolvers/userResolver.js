@@ -141,8 +141,10 @@ export const getCart = async (req, res) => {
   }
   
   const items = await Promise.all(user.items.map(async (item) => {
-    const itemList = await Item.findById(item);
-    return itemList
+    const itemList = await Item.findById(item)
+    if(itemList) {
+      return itemList
+    }
   }));
   res.send(items);
 };

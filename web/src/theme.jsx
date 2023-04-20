@@ -22,17 +22,7 @@ const theme = extendTheme({
     green: "#edf2f7"
   },
   fonts,
-  breakpoints,
-  styles:{
-    global:{
-      'html, body':{
-        backgroundImage:"/vite.svg",
-      backgroundPosition:"center",
-      backgroundRepeat:"no-repeat",
-      backgroundSize:"cover"
-      }
-    }
-  }
+  breakpoints
 })
 
 export default theme

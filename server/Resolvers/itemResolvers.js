@@ -85,3 +85,14 @@ export const addItemToCart = async (req, res) => {
   await user.save();
   res.send(user);
 };
+
+export const removeItemFromCart = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.status(422).json({ error: "User not found" });
+  }
+  user.items = user.items.filter((item) => item != id);
+  await user.save();
+  res.send(user);
+}

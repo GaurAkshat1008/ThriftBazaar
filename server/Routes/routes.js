@@ -7,6 +7,7 @@ import {
   deleteItem,
   updateItem,
   addItemToCart,
+  removeItemFromCart,
 } from "../Resolvers/itemResolvers.js";
 import {
   register,
@@ -35,6 +36,7 @@ router.put("/v1/updateItem/:id", protect, updateItem);
 router.post("/v1/addToCart/:id", protect, addItemToCart);
 router.get("/v1/userItems", protect, getItemsByUser);
 router.get("/v1/getCart", protect, getCart);
+router.post("/v1/deleteFromCart/:id", protect, removeItemFromCart)
 
 // user routes
 router.post("/v1/register", register);
