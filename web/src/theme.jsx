@@ -23,6 +23,16 @@ const theme = extendTheme({
   },
   fonts,
   breakpoints,
+  styles:{
+    global:{
+      'html, body':{
+        backgroundImage:"/vite.svg",
+      backgroundPosition:"center",
+      backgroundRepeat:"no-repeat",
+      backgroundSize:"cover"
+      }
+    }
+  }
 })
 
 export default theme
