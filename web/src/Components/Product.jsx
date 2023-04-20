@@ -1,17 +1,20 @@
 import "../Styles/product.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
-import { TimeIcon } from "@chakra-ui/icons";
-import { Icon, Flex, Spinner, Text, Button } from "@chakra-ui/react";
+import { TimeIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Icon, Flex, Spinner, Text, Button, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getItem, getUser, addToCart } from "../axios/axios";
+import { getItem, getUser, addToCart, deleteItem } from "../axios/axios";
+import { useAuth } from "../../utils/useAuth";
 
 const Product = () => {
   const { id } = useParams();
+  const auth = useAuth();
+  // console.log(auth.user)
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   useEffect(() => {
     const getProduct = async () => {
       const productData = await getItem(id);
@@ -27,11 +30,12 @@ const Product = () => {
       // console.log(product.user);
       const getUserData = async () => {
         const userData = await getUser(product.user);
-        setUser(userData.name);
+        setUser(userData);
       };
       getUserData();
     }
   }, [product]);
+
   if (loading) {
     return (
       <Flex h={"70vh"} justifyContent={"center"} alignItems={"center"}>
@@ -52,7 +56,22 @@ const Product = () => {
         </div>
         <div className="productRight">
           <div className="productNameContainer">
-            <div className="productName">{product.name}</div>
+            <Flex justifyContent={"space-between"} alignItems={"center"}>
+              <Box fontSize={"2rem"} fontFamily={"monte"} fontWeight={"bolder"}>
+                {product.name}
+              </Box>
+              {auth.user && auth.user._id === product.user && (
+                // <DeleteIcon as={Button} fontSize={"1.5rem"} color={"red.800"} />
+                <Button colorScheme="gray" onClick={async () => {
+                  const response = await deleteItem(id);
+                  console.log(response);
+                  window.location.href = "/"
+                }}>
+                  <DeleteIcon fontSize={"1.5rem"} color={"red.800"} />
+                </Button>
+              )}
+            </Flex>
+            {/* <div className="productName">{product.name}</div> */}
             <div className="productDesc">{product.description}</div>
           </div>
           <div className="buyContainer">
@@ -64,9 +83,12 @@ const Product = () => {
               p={8}
               fontSize={"1.25rem"}
               color={"whitesmoke"}
-              onClick={ async () => {
-                const response = await addToCart(id)
-                console.log(response)
+              onClick={async () => {
+                const response = await addToCart(id);
+                if(response){
+                  window.location.href = "/cart"
+                }
+                console.log(response);
               }}
             >
               <Icon
@@ -84,7 +106,7 @@ const Product = () => {
               <div className="sellerName">
                 <Icon as={PersonIcon} color={"button"} />
                 {/* <PersonIcon /> */}
-                {user}
+                {user.name}
               </div>
             </div>
             <div className="postedTime">

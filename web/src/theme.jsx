@@ -19,10 +19,20 @@ const theme = extendTheme({
   colors: {
     black: '#16161D',
     button: '#00ADB5',
-    gree: "#edf2f7"
+    green: "#edf2f7"
   },
   fonts,
   breakpoints,
+  styles:{
+    global:{
+      'html, body':{
+        backgroundImage:"/vite.svg",
+      backgroundPosition:"center",
+      backgroundRepeat:"no-repeat",
+      backgroundSize:"cover"
+      }
+    }
+  }
 })
 
 export default theme

@@ -4,6 +4,7 @@ import { getItemsByUser } from "../axios/axios";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Grid, Box } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const ProductCards = () => {
   const [data, setData] = useState([]);
@@ -52,6 +53,8 @@ const ProductCards = () => {
                 imgUrls={item.imgUrls}
                 user={item.user}
                 onClick={() => setSelectedId(item._id)}
+                onClickbtn={() => console.log("clicked")}
+                btnVal={<DeleteIcon  color={'red.800'} fontSize={'1rem'}/>}
               />
             </a>
           );
